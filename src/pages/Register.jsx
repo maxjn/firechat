@@ -78,7 +78,9 @@ function Register() {
   return (
     <div className="formContainer">
       <div className="formWrapper">
-        <span className="logo">FiteChat</span>
+        <span className="logo">
+          <img src="/favicon.ico" alt="Logo" width={30} /> FireChat
+        </span>
         <span className="title">Register</span>
         <form onSubmit={handleSubmit}>
           <input

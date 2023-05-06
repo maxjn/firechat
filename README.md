@@ -1,8 +1,8 @@
-# Firechat - React Firebase Practice
+# FireChat - React Firebase Practice
 
 This is a simple chat application for practicing React & Firebase.
 
-See [Live Project](https://maxjn-firechat.pages.dev/).
+See [Live Project](https://maxjn-FireChat.pages.dev/).
 
 This Project was bootstrapped with [Vite](https://vitejs.dev/).
 
@@ -11,6 +11,7 @@ This Project was bootstrapped with [Vite](https://vitejs.dev/).
 - JSX,Tailwind
 - ES6
 - React
+- useContext,useReducer Hooks
 - **react-router-dom** for routing
 - **Firestore** for backend
 
@@ -23,7 +24,7 @@ This Project was bootstrapped with [Vite](https://vitejs.dev/).
 
 ## Installation
 
-Install **Firechat** with npm
+Install **FireChat** with npm
 
 ```shell
 npm install

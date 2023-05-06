@@ -11,12 +11,11 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import "./style.scss";
 import NotFound from "./pages/404";
-import { AuthContext } from "./context/AuthContext";
 import ProtectedRoute from "./utils/ProtectedRoute";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/">
+    <Route path="/" errorElement={<NotFound />}>
       <Route
         index
         element={
@@ -33,8 +32,6 @@ const router = createBrowserRouter(
 );
 
 function App() {
-  const { currentUser } = useContext(AuthContext);
-  console.log(currentUser);
   return (
     <main className="App">
       <RouterProvider router={router} />
