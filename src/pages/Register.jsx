@@ -78,7 +78,7 @@ function Register() {
   return (
     <div className="formContainer">
       <div className="formWrapper">
-        <span className="logo">Lama Chat</span>
+        <span className="logo">FiteChat</span>
         <span className="title">Register</span>
         <form onSubmit={handleSubmit}>
           <input
@@ -117,7 +117,9 @@ function Register() {
           </label>
           <button disabled="">Sign up</button>
           {loading && (
-            <span>Uploading and compressing the image please wait...</span>
+            <span>
+              Uploading and compressing <br></br> the image please wait...
+            </span>
           )}
           {error && <span>Somthing went wrong!</span>}
         </form>
