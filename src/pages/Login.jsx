@@ -37,7 +37,9 @@ function Login() {
   return (
     <div className="formContainer">
       <div className="formWrapper">
-        <span className="logo">FiteChat</span>
+        <span className="logo">
+          <img src="/favicon.ico" alt="Logo" width={30} /> FireChat
+        </span>
         <span className="title">Login</span>
         <form onSubmit={handleSubmit}>
           <input
