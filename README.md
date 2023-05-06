@@ -11,9 +11,11 @@ This Project was bootstrapped with [Vite](https://vitejs.dev/).
 - JSX,Tailwind
 - ES6
 - React
-- useContext,useReducer Hooks
+- useContext,useReducer, useRef Hooks
 - **react-router-dom** for routing
 - **Firestore** for backend
+- **uuid** for generating unique ids
+- **Luxon** for dealing with date
 
 ## Features
 
