@@ -1,18 +1,95 @@
-import React from "react";
+import { useContext, useState } from "react";
+import { v4 as uuid } from "uuid";
+import { ChatContext } from "../context/ChatContext";
+import { AuthContext } from "../context/AuthContext";
 import Img from "../img/img.png";
 import Attach from "../img/attach.png";
+import { Timestamp, arrayUnion, doc, updateDoc } from "firebase/firestore";
+import { db, storage } from "../firebase/config";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 const Input = () => {
+  const [text, setText] = useState("");
+  const [img, setImg] = useState(null);
+  const { currentUser } = useContext(AuthContext);
+  const { selectedUser } = useContext(ChatContext);
+
+  const handleSend = async (e) => {
+    e.preventDefault();
+    try {
+      if (img) {
+        const storageRef = ref(storage, uuid());
+        // Uploading image to storage
+        await uploadBytesResumable(storageRef, img).then(() => {
+          getDownloadURL(storageRef).then(async (downloadURL) => {
+            // sending message
+            await updateDoc(doc(db, "chats", selectedUser.chatId), {
+              messages: arrayUnion({
+                id: uuid(),
+                text,
+                senderId: currentUser.uid,
+                date: Timestamp.now(),
+                img: downloadURL,
+              }),
+            });
+          });
+        });
+      } else if (text) {
+        // Sending message
+        await updateDoc(doc(db, "chats", selectedUser.chatId), {
+          messages: arrayUnion({
+            id: uuid(),
+            text,
+            senderId: currentUser.uid,
+            date: Timestamp.now(),
+          }),
+        });
+      }
+
+      // Updating Last messages
+
+      await updateDoc(doc(db, "userChats", currentUser.uid), {
+        [selectedUser.chatId + ".lastMessage"]: {
+          text,
+        },
+        [selectedUser.chatId + ".date"]: Timestamp.now(),
+      });
+      await updateDoc(doc(db, "userChats", selectedUser.user.uid), {
+        [selectedUser.chatId + ".lastMessage"]: {
+          text,
+        },
+        [selectedUser.chatId + ".date"]: Timestamp.now(),
+      });
+    } catch (err) {
+      //TODO: Handle error
+    }
+    setText("");
+    setImg(null);
+  };
   return (
     <div className="input">
-      <input type="text" placeholder="Type something..." />
+      <input
+        type="text"
+        placeholder="Type something..."
+        onChange={(e) => setText(e.target.value)}
+        value={text}
+        disabled={selectedUser.chatId == null}
+      />
       <div className="send">
         <img src={Attach} alt="" />
-        <input type="file" style={{ display: "none" }} id="file" />
+        <input
+          type="file"
+          style={{ display: "none" }}
+          id="file"
+          onChange={(e) => setImg(e.target.files[0])}
+          disabled={selectedUser.chatId == null}
+        />
         <label htmlFor="file">
           <img src={Img} alt="" />
         </label>
-        <button>Send</button>
+        <button onClick={handleSend} disabled={selectedUser.chatId == null}>
+          Send
+        </button>
       </div>
     </div>
   );
