@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function CopyRight() {
   return (
@@ -7,7 +8,7 @@ function CopyRight() {
       <p>
         {" "}
         {new Date().getFullYear()} &copy; By{" "}
-        <a href="https://github.com/maxjn"> Mohamad Haqnegahdar (maxjn) </a>
+        <Link to="https://github.com/maxjn"> Mohamad Haqnegahdar (maxjn) </Link>
       </p>
     </div>
   );
