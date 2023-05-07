@@ -11,6 +11,7 @@ import "./style.scss";
 import NotFound from "./pages/404";
 import ProtectedRoute from "./utils/ProtectedRoute";
 import RootLayout from "./layouts/RootLayout";
+import AuthProtectedRoute from "./utils/AuthProtectedRoute";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -26,17 +27,17 @@ const router = createBrowserRouter(
       <Route
         path="register"
         element={
-          <ProtectedRoute>
+          <AuthProtectedRoute>
             <Register />
-          </ProtectedRoute>
+          </AuthProtectedRoute>
         }
       />
       <Route
         path="login"
         element={
-          <ProtectedRoute>
+          <AuthProtectedRoute>
             <Login />
-          </ProtectedRoute>
+          </AuthProtectedRoute>
         }
       />
       <Route path="*" element={<NotFound />} />
