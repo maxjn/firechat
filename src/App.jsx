@@ -10,13 +10,11 @@ import Register from "./pages/Register";
 import "./style.scss";
 import NotFound from "./pages/404";
 import ProtectedRoute from "./utils/ProtectedRoute";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import CopyRight from "./components/CopyRight";
+import RootLayout from "./layouts/RootLayout";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" errorElement={<NotFound />}>
+    <Route path="/" element={<RootLayout />} errorElement={<NotFound />}>
       <Route
         index
         element={
@@ -50,14 +48,6 @@ function App() {
   return (
     <main className="App">
       <RouterProvider router={router} />
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        newestOnTop={false}
-        closeOnClick
-        theme="light"
-      />
-      <CopyRight />
     </main>
   );
 }
