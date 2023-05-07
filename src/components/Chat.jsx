@@ -11,7 +11,10 @@ const Chat = () => {
   return (
     <div className="chat">
       <div className="chatInfo">
-        <span>{selectedUser.user?.displayName}</span>
+        <div className="selected-user">
+          <img src={selectedUser.user.photoURL} alt="Profile" />
+          <span>{selectedUser.user?.displayName}</span>
+        </div>
         <div className="chatIcons">
           <img src={Cam} alt="" />
           <img src={Add} alt="" />

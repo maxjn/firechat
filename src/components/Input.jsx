@@ -7,6 +7,7 @@ import Attach from "../img/attach.png";
 import { Timestamp, arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { db, storage } from "../firebase/config";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { toast } from "react-toastify";
 
 const Input = () => {
   const [text, setText] = useState("");
@@ -61,11 +62,12 @@ const Input = () => {
         [selectedUser.chatId + ".date"]: Timestamp.now(),
       });
     } catch (err) {
-      //TODO: Handle error
+      toast.error("Problem sending message!");
     }
     setText("");
     setImg(null);
   };
+  const disabled = selectedUser.chatId == "null";
   return (
     <div className="input">
       <input
@@ -73,7 +75,8 @@ const Input = () => {
         placeholder="Type something..."
         onChange={(e) => setText(e.target.value)}
         value={text}
-        disabled={selectedUser.chatId == null}
+        disabled={disabled}
+        onKeyDown={(e) => e.code === "Enter" && handleSend(e)}
       />
       <div className="send">
         <img src={Attach} alt="" />
@@ -82,12 +85,12 @@ const Input = () => {
           style={{ display: "none" }}
           id="file"
           onChange={(e) => setImg(e.target.files[0])}
-          disabled={selectedUser.chatId == null}
+          disabled={disabled}
         />
         <label htmlFor="file">
           <img src={Img} alt="" />
         </label>
-        <button onClick={handleSend} disabled={selectedUser.chatId == null}>
+        <button onClick={handleSend} disabled={disabled}>
           Send
         </button>
       </div>

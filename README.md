@@ -2,7 +2,7 @@
 
 This is a simple chat application for practicing React & Firebase.
 
-See [Live Project](https://maxjn-FireChat.pages.dev/).
+See [Live Project](https://maxjn-fireChat.pages.dev/).
 
 This Project was bootstrapped with [Vite](https://vitejs.dev/).
 
@@ -16,6 +16,7 @@ This Project was bootstrapped with [Vite](https://vitejs.dev/).
 - **Firestore** for backend
 - **uuid** for generating unique ids
 - **Luxon** for dealing with date
+- **Toastify** for showing toast messages
 
 ## Features
 
