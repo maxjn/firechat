@@ -12,12 +12,12 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase/config";
 import { AuthContext } from "../context/AuthContext";
+import { toast } from "react-toastify";
 
 const Search = () => {
   const { currentUser } = useContext(AuthContext);
   const [username, setUsername] = useState("");
   const [user, setUser] = useState(null);
-  const [error, setError] = useState(false);
 
   // Handle Search
   const handleSearch = async () => {
@@ -30,7 +30,7 @@ const Search = () => {
         setUser(doc.data());
       });
     } catch (err) {
-      setError(true);
+      toast.error("Couldn't find the user!");
     }
   };
 
@@ -69,7 +69,7 @@ const Search = () => {
         });
       }
     } catch (err) {
-      setError(true);
+      toast.error("Couldn't find the user!");
     }
 
     setUser(null);
@@ -87,7 +87,6 @@ const Search = () => {
           value={username}
         />
       </div>
-      {error && <span>User not found!</span>}
       {user && (
         <div className="userChat" onClick={handleSelect}>
           <img src={user.photoURL} alt="" />

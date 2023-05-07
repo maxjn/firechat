@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 // Firebase
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase/config";
 
 function Login() {
   // State
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -22,16 +21,22 @@ function Login() {
   // Login with Email and Password
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
     const { email, password } = formData;
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-      setLoading(false);
-      navigate("/");
-    } catch (err) {
-      setError(true);
-      setLoading(false);
-    }
+
+    toast.promise(signInWithEmailAndPassword(auth, email, password), {
+      pending: "Authenticating... ",
+      success: {
+        render({ data }) {
+          navigate("/");
+          return `${data.user.displayName} Welcome to Firecaht 🔥`;
+        },
+      },
+      error: {
+        render({ data }) {
+          return `Authentication failed with error code: ${data.code}`;
+        },
+      },
+    });
   };
 
   return (
@@ -55,8 +60,6 @@ function Login() {
             placeholder="password"
           />
           <button>Sign in</button>
-          {error && <span>Somthing went wrong!</span>}
-          {loading && <span>Authenticating user...</span>}
         </form>
         <p>
           You don't have an account? <Link to="/register">Register</Link>

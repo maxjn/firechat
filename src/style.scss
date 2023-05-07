@@ -17,11 +17,14 @@
 }
 
 html,
-body {
+body,
+* {
   font-family: "Roboto", sans-serif;
   margin: 0;
   padding: 0;
   outline: 0;
+  transition: ease-out 0.3s;
+  text-decoration: none;
 }
 
 .formContainer {
@@ -72,6 +75,9 @@ body {
         font-weight: bold;
         border: none;
         cursor: pointer;
+        &:hover {
+          background-color: #6b8bf4;
+        }
       }
 
       label {
@@ -160,6 +166,9 @@ body {
               position: absolute;
               bottom: 10px;
             }
+            &:hover {
+              background-color: #7371af;
+            }
           }
         }
       }
@@ -211,6 +220,11 @@ body {
             color: lightgray;
           }
         }
+        .userChatTime {
+          margin-left: auto;
+          font-size: 14px;
+          color: lightgray;
+        }
       }
     }
     .chat {
@@ -224,6 +238,18 @@ body {
         justify-content: space-between;
         padding: 10px;
         color: lightgray;
+        .selected-user {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 8px;
+          img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+          }
+        }
       }
 
       .chatIcons {
@@ -332,6 +358,13 @@ body {
             color: white;
             background-color: #8da4f1;
             cursor: pointer;
+
+            &:hover {
+              background-color: #6b8bf4;
+            }
+            &:disabled {
+              background-color: #b1bce0;
+            }
           }
         }
       }
@@ -347,4 +380,18 @@ body {
   align-items: center;
   justify-content: center;
   color: white;
+}
+
+.copyright {
+  position: absolute;
+  padding: 1rem;
+  background-color: #2f2d52;
+  color: #ddddf7;
+  top: 1rem;
+  left: 0.5rem;
+  border-radius: 0px 10px 10px 10px;
+
+  a {
+    color: #fff;
+  }
 }

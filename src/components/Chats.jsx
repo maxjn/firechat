@@ -3,6 +3,7 @@ import { AuthContext } from "../context/AuthContext";
 import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase/config";
 import { ChatContext } from "../context/ChatContext";
+import { DateTime } from "luxon";
 
 const Chats = () => {
   const { currentUser } = useContext(AuthContext);
@@ -43,6 +44,11 @@ const Chats = () => {
             <div className="userChatInfo">
               <span>{chat[1].userInfo.displayName}</span>
               <p>{chat[1].lastMessage?.text}</p>
+            </div>
+            <div className="userChatTime">
+              {DateTime.fromSeconds(chat[1].date.seconds).toFormat(
+                " LLL dd  ' | '  hh:mm a"
+              )}
             </div>
           </div>
         ))}
